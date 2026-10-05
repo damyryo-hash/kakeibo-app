@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts'
+import { MonthlyCharts } from '../components/MonthlyCharts'
 import { MonthNav } from '../components/MonthNav'
 import { useStore } from '../hooks/useStore'
 import { chartColor, expenseByCategory, monthlyExpense } from '../utils/aggregate'
@@ -58,6 +59,8 @@ export function AnalyticsPage() {
           </>
         )}
       </div>
+
+      <MonthlyCharts />
 
       <div className="card">
         <h2 className="card-title">月別支出の推移（直近6か月）</h2>

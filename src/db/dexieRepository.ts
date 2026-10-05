@@ -109,6 +109,12 @@ export class DexieRepository implements Repository {
     return this.db.categories.delete(id)
   }
 
+  async reorderCategories(orderedIds: string[]) {
+    await this.db.transaction('rw', this.db.categories, async () => {
+      for (const [order, id] of orderedIds.entries()) await this.db.categories.update(id, { order })
+    })
+  }
+
   async resetAll() {
     await this.db.transaction('rw', this.db.categories, this.db.transactions, this.db.meta, async () => {
       await this.db.transactions.clear()

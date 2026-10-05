@@ -54,6 +54,24 @@ export function monthlyExpense(txs: Transaction[], endMonth: string, count: numb
   return months.map((month) => ({ month, expense: map.get(month)! }))
 }
 
+export interface MonthSummary extends Summary {
+  month: string
+}
+
+/** endMonth を末尾とする直近 count か月の収入・支出・収支（取引がない月も0円） */
+export function monthlySummaries(txs: Transaction[], endMonth: string, count: number): MonthSummary[] {
+  const months = Array.from({ length: count }, (_, i) => shiftMonth(endMonth, i - (count - 1)))
+  const map = new Map<string, Summary>(months.map((m) => [m, { income: 0, expense: 0, balance: 0 }]))
+  for (const t of txs) {
+    const s = map.get(monthOf(t.date))
+    if (!s) continue
+    if (t.type === 'income') s.income += t.amount
+    else s.expense += t.amount
+    s.balance = s.income - s.expense
+  }
+  return months.map((month) => ({ month, ...map.get(month)! }))
+}
+
 /** カテゴリ順位に応じたグラフ色（iOSのシステムカラー系） */
 export const CHART_COLORS = [
   '#0a84ff', '#30d158', '#ff9f0a', '#ff453a', '#bf5af2',

@@ -178,6 +178,16 @@ h1, h2, h3, p { margin: 0; }
 .legend.compact li { padding: 6px 0; font-size: 14px; }
 .legend.compact .legend-amount { font-weight: 500; }
 
+.chart-legend { display: flex; gap: 14px; font-size: 13px; color: var(--text-2); margin-bottom: 4px; }
+.chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+.chart-note { color: var(--text-2); font-size: 12px; margin-top: 6px; }
+.sel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.sel-head .card-title { margin: 0; }
+.select.mini select { height: 34px; box-shadow: none; background: var(--fill); font-size: 14px; padding-right: 28px; }
+.select.mini::after { top: 4px; }
+.expense-red { color: var(--red); }
+.recharts-wrapper, .recharts-surface { outline: none; }
+
 /* ===== 設定 ===== */
 .group-title { color: var(--text-2); font-size: 13px; padding: 10px 8px 0; text-transform: none; }
 .group.pad { padding: 10px; }
@@ -254,6 +264,11 @@ h1, h2, h3, p { margin: 0; }
 .chip.on.expense { background: var(--red); }
 .chip.on.income { background: var(--green); }
 :root[data-theme='dark'] .chip.on.income { color: #000; }
+.chip.add { color: var(--blue); background: var(--fill); box-shadow: none; }
+.cat-name { flex: 1; min-width: 0; }
+.reorder { display: flex; gap: 2px; margin-left: -8px; }
+.reorder button { width: 32px; height: 36px; color: var(--blue); font-size: 13px; }
+.reorder button:disabled { color: var(--fill-strong); }
 .row input[type='date'] { background: var(--fill); border: 0; border-radius: 8px; padding: 6px 10px; outline: none; min-height: 36px; }
 .memo-input { flex: 1; text-align: right; border: 0; background: transparent; outline: none; min-width: 0; }
 .text-input {

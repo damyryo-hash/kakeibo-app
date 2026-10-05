@@ -54,7 +54,7 @@ export function SettingsPage({ theme, onTheme }: Props) {
       <div className="group-title">データ</div>
       <div className="group">
         <button className="row tap" onClick={() => setView('categories')}>
-          <span>カテゴリ管理</span><span className="chev">›</span>
+          <span>カテゴリー管理</span><span className="chev">›</span>
         </button>
         <button className="row tap" onClick={exportCsv}>
           <span>CSVエクスポート</span><span className="chev">›</span>

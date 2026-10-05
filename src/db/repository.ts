@@ -22,6 +22,8 @@ export interface Repository {
   /** 名前変更。同じ種別の既存取引のカテゴリ名も更新する */
   renameCategory(id: string, name: string): Promise<void>
   deleteCategory(id: string): Promise<void>
+  /** 指定した並び順（ID配列）で order を振り直す */
+  reorderCategories(orderedIds: string[]): Promise<void>
 
   /** 取引・カテゴリをすべて削除し、カテゴリは初期状態に戻す */
   resetAll(): Promise<void>

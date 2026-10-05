@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useStore } from '../hooks/useStore'
-import type { Transaction, TxType } from '../types'
+import { TYPE_LABEL, type Transaction, type TxType } from '../types'
+import { CategoryNameSheet } from './CategoryNameSheet'
 import { todayStr } from '../utils/date'
 import { parseAmount } from '../utils/format'
 import { Sheet } from './Modal'
@@ -14,7 +15,8 @@ export interface FormTarget {
 }
 
 export function TransactionForm({ target, onClose }: { target: FormTarget; onClose: () => void }) {
-  const { categoryNames, addTx, updateTx } = useStore()
+  const { categoryNames, addTx, updateTx, addCategory } = useStore()
+  const [adding, setAdding] = useState(false)
   const editing = target.tx
   const [type, setType] = useState<TxType>(editing?.type ?? target.type ?? 'expense')
   const [amountText, setAmountText] = useState(editing ? editing.amount.toLocaleString('ja-JP') : '')
@@ -42,6 +44,7 @@ export function TransactionForm({ target, onClose }: { target: FormTarget; onClo
   }
 
   return (
+    <>
     <Sheet
       title={editing ? '取引を編集' : type === 'expense' ? '支出を追加' : '収入を追加'}
       onClose={onClose}
@@ -76,6 +79,7 @@ export function TransactionForm({ target, onClose }: { target: FormTarget; onClo
             {c}
           </button>
         ))}
+        <button className="chip add" onClick={() => setAdding(true)}>＋カテゴリーを追加</button>
       </div>
 
       <div className="group">
@@ -90,5 +94,18 @@ export function TransactionForm({ target, onClose }: { target: FormTarget; onClo
         </label>
       </div>
     </Sheet>
+      {adding && (
+        <CategoryNameSheet
+          title={`${TYPE_LABEL[type]}カテゴリーを追加`}
+          existing={options}
+          onClose={() => setAdding(false)}
+          onSave={async (name) => {
+            await addCategory(type, name)
+            setCategory(name) // 追加したカテゴリーをそのまま選択
+            setAdding(false)
+          }}
+        />
+      )}
+    </>
   )
 }

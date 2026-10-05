@@ -21,6 +21,7 @@ interface Store {
   addCategory: (type: TxType, name: string) => Promise<void>
   renameCategory: (id: string, name: string) => Promise<void>
   removeCategory: (id: string) => Promise<void>
+  reorderCategories: (orderedIds: string[]) => Promise<void>
   resetAll: () => Promise<void>
 }
 
@@ -63,6 +64,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       addCategory: run((type: TxType, name: string) => repo.addCategory(type, name)),
       renameCategory: run((id: string, name: string) => repo.renameCategory(id, name)),
       removeCategory: run((id: string) => repo.deleteCategory(id)),
+      reorderCategories: run((ids: string[]) => repo.reorderCategories(ids)),
       resetAll: run(() => repo.resetAll()),
       importTxs: async (inputs) => {
         // 同じ内容の取引は重複として取り込まない（再インポートしても二重にならない）

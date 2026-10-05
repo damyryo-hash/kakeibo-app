@@ -5,6 +5,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 // base を './' にすると、どのURL（サブフォルダ配下など）に置いても動きます
 export default defineConfig({
   base: './',
+  // Cloudflare Tunnel（一時公開URL）経由のアクセスを許可
+  preview: { allowedHosts: ['.trycloudflare.com'] },
   plugins: [
     react(),
     VitePWA({
